@@ -1,13 +1,6 @@
 <template>
   <h1>帳號管理</h1>
-  <button
-    type="button"
-    class="btn btn-warning"
-    @click.prevent="fun.doNew"
-    :disabled="vm.isEdit"
-  >
-    新增
-  </button>
+  <button type="button" class="btn btn-warning" @click.prevent="fun.doNew" :disabled="vm.isEdit">新增</button>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -25,63 +18,26 @@
         <template v-if="item.isEdit">
           <td>
             <div class="d-flex gap-2">
-              <button
-                type="button"
-                class="btn btn-success"
-                @click.prevent="fun.doSave"
-              >
-                存檔
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                @click.prevent="fun.doCancel"
-                autocomplete="off"
-              >
-                取消
-              </button>
+              <button type="button" class="btn btn-success" @click.prevent="fun.doSave">存檔</button>
+              <button type="button" class="btn btn-secondary" @click.prevent="fun.doCancel" autocomplete="off">取消</button>
             </div>
           </td>
           <td>
-            <input
-              type="text"
-              class="form-control"
-              v-model="vm.item.accountNo"
-              autocomplete="off"
-            />
+            <input type="text" class="form-control" v-model="vm.item.accountNo" autocomplete="off" />
           </td>
           <td>
             <input type="text" class="form-control" v-model="vm.item.name" />
           </td>
           <td>
-            <input
-              type="password"
-              class="form-control"
-              v-model="vm.item.password"
-              autocomplete="off"
-            />
+            <input type="password" class="form-control" v-model="vm.item.password" autocomplete="off" />
           </td>
           <th></th>
         </template>
         <template v-else>
           <td>
             <div class="d-flex gap-2">
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click.prevent="fun.doEdit(item, idx)"
-                :disabled="vm.isEdit"
-              >
-                修改
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                @click.prevent="fun.doRemove(item)"
-                :disabled="vm.isEdit"
-              >
-                刪除
-              </button>
+              <button type="button" class="btn btn-primary" @click.prevent="fun.doEdit(item, idx)" :disabled="vm.isEdit">修改</button>
+              <button type="button" class="btn btn-danger" @click.prevent="fun.doRemove(item)" :disabled="vm.isEdit">刪除</button>
             </div>
           </td>
           <td class="align-middle">{{ item.accountNo }}</td>
@@ -101,7 +57,7 @@ const vm = ref({
   data: [] as Array<any>,
   item: {} as any,
   idx: -1,
-  isEdit: false,
+  isEdit: false
 });
 
 let token = localStorage.getItem("example1_token");
@@ -109,7 +65,7 @@ let token = localStorage.getItem("example1_token");
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer ${token}`,
+  Authorization: `Bearer ${token}`
 } as any;
 
 const fun = {
@@ -118,7 +74,7 @@ const fun = {
     fetch("/api/account/query", {
       method: "POST",
       headers: headers,
-      body: JSON.stringify({}),
+      body: JSON.stringify({})
     })
       .then((res) => {
         return res.json();
@@ -140,7 +96,7 @@ const fun = {
       isEdit: true,
       accountNo: "",
       name: "",
-      password: "",
+      password: ""
     });
     vm.value.item = vm.value.data[0];
   },
@@ -157,7 +113,7 @@ const fun = {
       fetch("/api/account/remove", {
         method: "POST",
         headers: headers,
-        body: JSON.stringify({ accountNo: item.accountNo }),
+        body: JSON.stringify({ accountNo: item.accountNo })
       })
         .then((res) => {
           return res.json();
@@ -179,7 +135,7 @@ const fun = {
       fetch(`/api/account/${item.isNew ? "new" : "save"}`, {
         method: "POST",
         headers: headers,
-        body: JSON.stringify({ item: item }),
+        body: JSON.stringify({ item: item })
       })
         .then((res) => {
           return res.json();
@@ -203,7 +159,7 @@ const fun = {
       vm.value.data[vm.value.idx].isEdit = false;
     }
     vm.value.isEdit = false;
-  },
+  }
 };
 
 fun.doQuery();

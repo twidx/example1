@@ -2,23 +2,13 @@
   <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand">範例網站</RouterLink>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <RouterLink to="/account" class="nav-link active">
-              帳號管理
-            </RouterLink>
+            <RouterLink to="/account" class="nav-link active"> 帳號管理 </RouterLink>
           </li>
         </ul>
       </div>
@@ -40,7 +30,7 @@ const route = useRoute();
 const sys = useSystemStore();
 
 const vm = ref({
-  isInit: false,
+  isInit: false
 });
 
 const doToken = () => {
@@ -50,13 +40,13 @@ const doToken = () => {
     const headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`
     } as any;
 
     fetch("/api/auth/token", {
       method: "POST",
       headers: headers,
-      body: JSON.stringify({}),
+      body: JSON.stringify({})
     })
       .then((res) => {
         return res.json();
